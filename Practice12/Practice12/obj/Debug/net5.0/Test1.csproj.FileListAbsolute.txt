@@ -1,0 +1,15 @@
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\bin\Debug\net5.0\Test1.exe
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\bin\Debug\net5.0\Test1.deps.json
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\bin\Debug\net5.0\Test1.runtimeconfig.json
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\bin\Debug\net5.0\Test1.runtimeconfig.dev.json
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\bin\Debug\net5.0\Test1.dll
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\bin\Debug\net5.0\ref\Test1.dll
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\bin\Debug\net5.0\Test1.pdb
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\obj\Debug\net5.0\Test1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\obj\Debug\net5.0\Test1.AssemblyInfoInputs.cache
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\obj\Debug\net5.0\Test1.AssemblyInfo.cs
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\obj\Debug\net5.0\Test1.csproj.CoreCompileInputs.cache
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\obj\Debug\net5.0\Test1.dll
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\obj\Debug\net5.0\ref\Test1.dll
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\obj\Debug\net5.0\Test1.pdb
+C:\Users\Visjon\Documents\GitHub\Testing\Practice12\Practice12\obj\Debug\net5.0\Test1.genruntimeconfig.cache

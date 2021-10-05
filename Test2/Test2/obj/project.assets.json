@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Practice12\\Practice12\\Test1.csproj",
-      "projectName": "Test1",
-      "projectPath": "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Practice12\\Practice12\\Test1.csproj",
+      "projectUniqueName": "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Test2\\Test2\\Test2.csproj",
+      "projectName": "Test2",
+      "projectPath": "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Test2\\Test2\\Test2.csproj",
       "packagesPath": "C:\\Users\\Visjon\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Practice12\\Practice12\\obj\\",
+      "outputPath": "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Test2\\Test2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Visjon\\AppData\\Roaming\\NuGet\\NuGet.Config",
