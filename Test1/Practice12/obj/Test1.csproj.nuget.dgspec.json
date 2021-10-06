@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Practice12\\Practice12\\Test1.csproj": {}
+    "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Test1\\Practice12\\Test1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Practice12\\Practice12\\Test1.csproj": {
+    "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Test1\\Practice12\\Test1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Practice12\\Practice12\\Test1.csproj",
+        "projectUniqueName": "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Test1\\Practice12\\Test1.csproj",
         "projectName": "Test1",
-        "projectPath": "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Practice12\\Practice12\\Test1.csproj",
+        "projectPath": "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Test1\\Practice12\\Test1.csproj",
         "packagesPath": "C:\\Users\\Visjon\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Practice12\\Practice12\\obj\\",
+        "outputPath": "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Test1\\Practice12\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Visjon\\AppData\\Roaming\\NuGet\\NuGet.Config",
