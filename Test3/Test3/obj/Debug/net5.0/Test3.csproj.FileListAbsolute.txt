@@ -1,0 +1,16 @@
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\obj\Debug\net5.0\Test3.csproj.AssemblyReference.cache
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\obj\Debug\net5.0\Test3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\obj\Debug\net5.0\Test3.AssemblyInfoInputs.cache
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\obj\Debug\net5.0\Test3.AssemblyInfo.cs
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\obj\Debug\net5.0\Test3.csproj.CoreCompileInputs.cache
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\bin\Debug\net5.0\Test3.exe
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\bin\Debug\net5.0\Test3.deps.json
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\bin\Debug\net5.0\Test3.runtimeconfig.json
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\bin\Debug\net5.0\Test3.runtimeconfig.dev.json
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\bin\Debug\net5.0\Test3.dll
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\bin\Debug\net5.0\ref\Test3.dll
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\bin\Debug\net5.0\Test3.pdb
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\obj\Debug\net5.0\Test3.dll
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\obj\Debug\net5.0\ref\Test3.dll
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\obj\Debug\net5.0\Test3.pdb
+C:\Users\Visjon\Documents\GitHub\Testing\Test3\Test3\obj\Debug\net5.0\Test3.genruntimeconfig.cache

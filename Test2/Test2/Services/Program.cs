@@ -18,7 +18,8 @@ namespace Test2
 
         static async Task Main(string[] args)
         {
-            await TestClass.Test1();
+            var api = new ConsumeAPI();
+            api.ConnectToAPI();
         }
     }
 }
