@@ -11,7 +11,7 @@ namespace Test3
 
                 API apicall = new API(filepath: "C:\\Users\\Visjon\\Documents\\GitHub\\Testing\\Test3\\Test3\\json1.json");
                 await apicall.GetAPIStatus();
-                await apicall.StartSession();
+                //await apicall.StartSession();
                 ConsoleKeyInfo cki;
 
                 do
