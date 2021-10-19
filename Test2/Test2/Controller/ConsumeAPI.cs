@@ -21,7 +21,7 @@ namespace Test2
         private static AuthResponse _authResponse;
 
         private SessionData _sessionData;
-        private List<KeyObject> _keyList { get; set; }
+        private List<KeyObjectData> _keyList { get; set; }
 
     private HttpClient _httpClient { get; }
 
@@ -118,21 +118,22 @@ namespace Test2
 
         public async Task GetAllKeys()
         {
+            //string group_id = "74d11c3b-0e4d-47e7-9bbc-77900c82e2cf";
+            
             var response = await _httpClient.GetAsync("/crypto/v1/keys");
             if (response.IsSuccessStatusCode)
             {
                 var responseString = await response.Content.ReadAsStringAsync();
-                _keyList = JsonSerializer.Deserialize<List<KeyObject>>(responseString);
+                _keyList = JsonSerializer.Deserialize<List<KeyObjectData>>(responseString);
 
                 Console.WriteLine("Number of keys found: " + _keyList.Count);
                 int count = 0;
                 foreach (var key in _keyList)
                 {
                     count++;
-                    Console.WriteLine(count + ". Name: " + key.Name + " - Description: " + key.Description);
+                    Console.WriteLine(count + ". Name: " + key.name + " - Description: " + key.description);
                 }
                 Console.WriteLine("\n");
-
             }
             else
             {
@@ -156,26 +157,7 @@ namespace Test2
         //    //getactiveKey = returnkey;
         //}
 
-        //private async Task GetKeyByID(string kid)
-        //{
-        //    KeyObject returnkey = null;
-        //    if (kid.Length == 32 || kid.Length == 36)
-        //    {
-        //        var response = await _httpClient.GetAsync("/crypto/v1/keys/" + kid);
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            var responseBody = await response.Content.ReadAsStringAsync();
-        //            returnkey = JsonSerializer.Deserialize<KeyObject>(responseBody);
-        //            Console.WriteLine(string.Format($"The key with the name {returnkey.Name} has been found"));
-        //        }
-        //        else
-        //        {
-        //            var errormessage = await response.Content.ReadAsStringAsync();
-        //            var errorcode = response.StatusCode;
-        //            Console.WriteLine($"Error {(int)errorcode}: \nMessage: {errormessage}");
-        //        }
-        //    }
-        //}
+
     }
 
 }

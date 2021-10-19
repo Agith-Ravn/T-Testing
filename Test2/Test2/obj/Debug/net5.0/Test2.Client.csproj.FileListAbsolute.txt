@@ -13,5 +13,5 @@ C:\Users\Visjon\Documents\GitHub\Testing\Test2\Test2\obj\Debug\net5.0\Test2.Clie
 C:\Users\Visjon\Documents\GitHub\Testing\Test2\Test2\obj\Debug\net5.0\ref\Test2.Client.dll
 C:\Users\Visjon\Documents\GitHub\Testing\Test2\Test2\obj\Debug\net5.0\Test2.Client.pdb
 C:\Users\Visjon\Documents\GitHub\Testing\Test2\Test2\obj\Debug\net5.0\Test2.Client.genruntimeconfig.cache
-C:\Users\Visjon\Documents\GitHub\Testing\Test2\Test2\obj\Debug\net5.0\Test2.Client.csproj.AssemblyReference.cache
 C:\Users\Visjon\Documents\GitHub\Testing\Test2\Test2\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\Visjon\Documents\GitHub\Testing\Test2\Test2\obj\Debug\net5.0\Test2.Client.csproj.CopyComplete
