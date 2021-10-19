@@ -1102,6 +1102,7 @@ namespace Test2.Client.Models
     {
         /// <summary>Name of the security object.</summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public string Name { get; set; }
     
         /// <summary>Description of the security object.</summary>
