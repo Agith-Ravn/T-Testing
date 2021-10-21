@@ -7,114 +7,119 @@ namespace Test5
 {
     class Program
     {
+        // Device Id is coded into this class. Needs to be changed so that it can be entered manually
+        //IV for encryption is coded into the fortanixService class. may needs to be changed later. 
+
         static async Task Main(string[] args)
         {
-            /*
-             *  x Hente alle sucurit object (oversikt for deg + øvelse) denne funksjonen kan sikkert fjernes..
-             *  - Lage nye security object
-             *  - Encrypte data + ha med device ID
-             *  - Decrypte data + ha med device ID
-             *  - Key rotations
-             *
-             */
+            var api = new FortanixService(path: "C: /User/AgithRavn/Documents/GitHub/Testing/Test5/Test5/Model/LoginData.json");
+            string keyName = "DeviceKey1";
+            ConsoleKey ck;
 
-
-
-            string filepath = "C:/Users/Visjon/Documents/GitHub/Testing/Test5/Test5/Model/LoginData.json";
-            var api = new API(filepath);
-
-            Console.WriteLine("Ziot Solutions - Fortanix & Console application test \n");
-            ConsoleKeyInfo cki = default;
+            Console.WriteLine("Ziot Solutions - Fortanix API test console app\n");
 
             do
             {
                 Console.WriteLine("You have the following options:");
-                if (!api._loggedIn)
+                Console.WriteLine("Press N = Create new key");
+                Console.WriteLine("Press E = Encrypt a message");
+                Console.WriteLine("Press D = Decrypt a message");
+                Console.WriteLine("Press R = Rotate a Key");
+                Console.WriteLine("Press X = Export a Key");
+                Console.WriteLine("Press ESC = End the app");
+                Console.WriteLine("\nPlease press a key");
+                ck = Console.ReadKey().Key;
+                Console.Clear();
+
+                switch (ck)
                 {
-                    Console.WriteLine("Press L = Login");
-                    Console.WriteLine("\nPlease press a key");
-                    cki = Console.ReadKey();
-                    Console.Clear();
-                }
-
-                if (api._loggedIn)
-                {
-                    Console.WriteLine("Press G = Get a list of all security objects");
-                    Console.WriteLine("Press N = Create new key");
-                    Console.WriteLine("Press E = Encrypt a message");
-                    Console.WriteLine("Press D = Decrypt a message");
-                    Console.WriteLine("Press ESC = End the app");
-                    Console.WriteLine("\nPlease press a key");
-                    cki = Console.ReadKey();
-                    Console.Clear();
-
-                    if (cki.Key == ConsoleKey.G)
-                    {
-                        await api.GetAllSecurityObjects();
-                    }
-
-                    //if (cki.Key == ConsoleKey.N)
-                    //{
-
-                    //}
-
-                    if (cki.Key == ConsoleKey.E)
-                    {
-                        //How to get device id?
-                        string deviceID = "12345";
-                        Console.WriteLine("Please write your plain text:");
-                        string data = Console.ReadLine();
-
-                        //SOD = SecurityObjectData
-                        SecurityObjectData SOD = new SecurityObjectData()
-                        {
-                            Data = data,
-                            DeviceID = deviceID
-                        };
-
-                        var encryptedSOD = api.Encrypt(SOD);
-                        //Console.WriteLine("Your cipher text is" + encryptedSOD.Data + "\n");
-
-                    }
-
-                    //if (cki.Key == ConsoleKey.D)
-                    //{
-                    //    string deviceID = "12345";
-                    //    Console.WriteLine("Please write your cipher text");
-                    //    string cipher = Console.ReadLine();
-
-                    //    //SOD = SecurityObjectData
-                    //    SecurityObjectData SOD = new SecurityObjectData()
-                    //    {
-                    //        Data = cipher,
-                    //        DeviceID = deviceID
-                    //    };
-
-                    //    var decryptedSOD = api.Decrypt(SOD);
-                    //    Console.WriteLine("Your decrypted text is" + decryptedSOD.Data);
-                    //}
+                    case N:
+                        await CreateNewKeyHandler();
+                        break;
+                    case E:
+                        await EncryptionHandler();
+                        break;
+                    case D:
+                        await DecryptionHandler();
+                        break;
+                    case R:
+                        await RotateKeyHandler();
+                        break;
+                    case X:
+                        await ExportKeyHandler();
+                        break;
+                    default:
+                        KeyUnknown();
+                        break;
                 }
 
 
-                if (cki.Key == ConsoleKey.L)
+            } while (ck != ConsoleKey.Escape);
+
+
+
+            static void KeyUnknown()
+            {
+                Console.WriteLine("Please enter a valid key or end the App by pressing ESC.");
+            }
+
+            async Task CreateNewKeyHandler()
+            {
+                Console.WriteLine("Please write down name for the key");
+                string newKeyName = Console.ReadLine();
+                var newKey = await api.CreateNewKey(newKeyName);
+                Console.Clear();
+                if (newKey.name != null)
                 {
-                    if (api._loggedIn)
-                    {
-                        Console.WriteLine("You are already logged in");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Logging in..\n");
-                        Thread.Sleep(300);
-                        await api.connectToAPI();
-                        Console.Clear();
-                        Console.WriteLine("Login successful!\n");
-                    }
+                    Console.WriteLine("New key info: ");
+                    Console.WriteLine("Key name: " + newKey.name);
+                    Console.WriteLine("Key id: " + newKey.kid + "\n");
                 }
+                else
+                {
+                    Console.WriteLine("Error.. New key was't created.");
+                }
+            }
 
+            async Task EncryptionHandler()
+            {
+                Console.WriteLine("Please write your plain text:");
+                string data = Console.ReadLine();
 
+                Payload payload = new Payload(keyName, data);
 
-            } while (cki.Key != ConsoleKey.Escape);
+                var encryptedChicken = await api.Encrypt(payload);
+                Console.WriteLine($"Your cipher text is: {encryptedChicken.Data} \n");
+            }
+
+            async Task DecryptionHandler()
+            {
+                Console.WriteLine("Please write your cipher text");
+                string cipher = Console.ReadLine();
+
+                Payload payload = new Payload(keyName, cipher);
+
+                var decryptedChicken = await api.Decrypt(payload);
+                Console.WriteLine($"Your decrypted text is: {decryptedChicken.Data}");
+            }
+
+            async Task RotateKeyHandler()
+            {
+                Console.WriteLine("Please enter the name of the key that should rotate:");
+                var keyname = Console.ReadLine();
+                var newkey = await api.RotateKey(keyname);
+                Console.WriteLine($"Keyname: {newkey.name}\nNew Key-Id: {newkey.kid}");
+            }
+
+            async Task ExportKeyHandler()
+            {
+                Console.WriteLine("Please enter the name of the key that you want to export:");
+                var keyname = Console.ReadLine();
+                var key = await api.ExportKey(keyname);
+                Console.WriteLine($"Keyname: {key.name}\nKey-Id: {key.kid}\nKey-Value: {key.value}");
+            }
         }
+
+
     }
 }

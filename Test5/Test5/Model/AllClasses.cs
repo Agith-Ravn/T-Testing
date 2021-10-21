@@ -1,7 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Test5.M
+namespace Test5.Model
 {
+    //Temporary class
+    class AllClasses
+    {
+    }
+
+    public class LoginData
+    {
+        public string apiKey { get; set; }
+        public string baseURL { get; set; }
+    }
+
     public class SessionData
     {
         public int _expires_in;
@@ -20,5 +35,11 @@ namespace Test5.M
 
         public DateTime sessionStart { get; set; }
         public DateTime sessionEnd { get; set; }
-}
+    }
+
+    public class Key
+    {
+        public string Data { get; set; }
+        public string DeviceID { get; set; }
+    }
 }
