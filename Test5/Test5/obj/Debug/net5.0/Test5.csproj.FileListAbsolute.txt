@@ -1,0 +1,16 @@
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\obj\Debug\net5.0\Test5.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\obj\Debug\net5.0\Test5.AssemblyInfoInputs.cache
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\obj\Debug\net5.0\Test5.AssemblyInfo.cs
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\obj\Debug\net5.0\Test5.csproj.CoreCompileInputs.cache
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\bin\Debug\net5.0\Test5.exe
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\bin\Debug\net5.0\Test5.deps.json
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\bin\Debug\net5.0\Test5.runtimeconfig.json
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\bin\Debug\net5.0\Test5.runtimeconfig.dev.json
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\bin\Debug\net5.0\Test5.dll
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\bin\Debug\net5.0\ref\Test5.dll
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\bin\Debug\net5.0\Test5.pdb
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\obj\Debug\net5.0\Test5.dll
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\obj\Debug\net5.0\ref\Test5.dll
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\obj\Debug\net5.0\Test5.pdb
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\obj\Debug\net5.0\Test5.genruntimeconfig.cache
+C:\Users\Visjon\Documents\GitHub\Testing\Test5\Test5\obj\Debug\net5.0\Test5.csproj.AssemblyReference.cache
