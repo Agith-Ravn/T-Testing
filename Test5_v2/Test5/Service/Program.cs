@@ -13,7 +13,7 @@ namespace Test5
         static async Task Main(string[] args)
         {
             var api = new FortanixService(path: "C: /User/AgithRavn/Documents/GitHub/Testing/Test5/Test5/Model/LoginData.json");
-            string keyName = "DeviceKey1";
+            string keyName = "Test13";
             ConsoleKey ck;
 
             Console.WriteLine("Ziot Solutions - Fortanix API test console app\n");
@@ -26,6 +26,7 @@ namespace Test5
                 Console.WriteLine("Press D = Decrypt a message");
                 Console.WriteLine("Press R = Rotate a Key");
                 Console.WriteLine("Press X = Export a Key");
+                Console.WriteLine("Press W = Rotate a Key and warpped the new Key in the old Key");
                 Console.WriteLine("Press ESC = End the app");
                 Console.WriteLine("\nPlease press a key");
                 ck = Console.ReadKey().Key;
@@ -48,13 +49,27 @@ namespace Test5
                     case X:
                         await ExportKeyHandler();
                         break;
+                    case W:
+                        await RotateWrapKeyHandler();
+                        break;
                     default:
                         KeyUnknown();
                         break;
                 }
 
 
-            } while (ck != ConsoleKey.Escape);
+            } while (ck != Escape);
+
+            async Task RotateWrapKeyHandler()
+            {
+                Console.WriteLine("Please write down name for the key that you want to rotate:");
+                var oldKeyName = Console.ReadLine();
+                Console.Clear();
+                var wrappedNewKey = await api.RotateKeyWrapped(oldKeyName);
+                Console.WriteLine("The new Key value:\n");
+                Console.WriteLine(wrappedNewKey.wrapped_key);
+
+            }
 
 
 
@@ -79,6 +94,8 @@ namespace Test5
                 {
                     Console.WriteLine("Error.. New key was't created.");
                 }
+
+                keyName = newKey.name;
             }
 
             async Task EncryptionHandler()
@@ -108,7 +125,7 @@ namespace Test5
                 Console.WriteLine("Please enter the name of the key that should rotate:");
                 var keyname = Console.ReadLine();
                 var newkey = await api.RotateKey(keyname);
-                Console.WriteLine($"Keyname: {newkey.name}\nNew Key-Id: {newkey.kid}");
+                Console.WriteLine($"\nKeyname: {newkey.name}\nNew Key-Id: {newkey.kid}\n");
             }
 
             async Task ExportKeyHandler()
@@ -116,10 +133,8 @@ namespace Test5
                 Console.WriteLine("Please enter the name of the key that you want to export:");
                 var keyname = Console.ReadLine();
                 var key = await api.ExportKey(keyname);
-                Console.WriteLine($"Keyname: {key.name}\nKey-Id: {key.kid}\nKey-Value: {key.value}");
+                Console.WriteLine($"\nKeyname: {key.name}\nKey-Id: {key.kid}\nKey-Value: {key.value}\n");
             }
         }
-
-
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\AgithRavn\\Documents\\GitHub\\Testing\\Test5\\Test5\\Test5.csproj": {}
+    "C:\\Users\\AgithRavn\\Documents\\GitHub\\Testing\\Test5_v2\\Test5\\Test5.csproj": {}
   },
   "projects": {
-    "C:\\Users\\AgithRavn\\Documents\\GitHub\\Testing\\Test5\\Test5\\Test5.csproj": {
+    "C:\\Users\\AgithRavn\\Documents\\GitHub\\Testing\\Test5_v2\\Test5\\Test5.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\AgithRavn\\Documents\\GitHub\\Testing\\Test5\\Test5\\Test5.csproj",
+        "projectUniqueName": "C:\\Users\\AgithRavn\\Documents\\GitHub\\Testing\\Test5_v2\\Test5\\Test5.csproj",
         "projectName": "Test5",
-        "projectPath": "C:\\Users\\AgithRavn\\Documents\\GitHub\\Testing\\Test5\\Test5\\Test5.csproj",
+        "projectPath": "C:\\Users\\AgithRavn\\Documents\\GitHub\\Testing\\Test5_v2\\Test5\\Test5.csproj",
         "packagesPath": "C:\\Users\\AgithRavn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\AgithRavn\\Documents\\GitHub\\Testing\\Test5\\Test5\\obj\\",
+        "outputPath": "C:\\Users\\AgithRavn\\Documents\\GitHub\\Testing\\Test5_v2\\Test5\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\AgithRavn\\AppData\\Roaming\\NuGet\\NuGet.Config",
