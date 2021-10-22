@@ -1,7 +1,7 @@
-﻿using System;
+﻿using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Test5.M;
 
 namespace Test5
 {
@@ -12,16 +12,16 @@ namespace Test5
 
         static async Task Main(string[] args)
         {
-            var api = new FortanixService(path: "C: /User/AgithRavn/Documents/GitHub/Testing/Test5/Test5/Model/LoginData.json");
+            string path = "C:/Users/AgithRavn/Documents/GitHub/Testing/Test5_v2/Test5/Model/LoginData.json";
+            var api = new FortanixService(path);
             string keyName = "Test13";
             ConsoleKey ck;
-
             Console.WriteLine("Ziot Solutions - Fortanix API test console app\n");
 
             do
             {
                 Console.WriteLine("You have the following options:");
-                Console.WriteLine("Press N = Create new key");
+                Console.WriteLine("Press K = Create new key");
                 Console.WriteLine("Press E = Encrypt a message");
                 Console.WriteLine("Press D = Decrypt a message");
                 Console.WriteLine("Press R = Rotate a Key");
@@ -32,44 +32,38 @@ namespace Test5
                 ck = Console.ReadKey().Key;
                 Console.Clear();
 
+
+                //if (ck == ConsoleKey.K)
+                //{
+                //    await CreateNewKeyHandler();
+                //}
                 switch (ck)
                 {
-                    case N:
+                    case ConsoleKey.K:
                         await CreateNewKeyHandler();
                         break;
-                    case E:
-                        await EncryptionHandler();
-                        break;
-                    case D:
-                        await DecryptionHandler();
-                        break;
-                    case R:
-                        await RotateKeyHandler();
-                        break;
-                    case X:
-                        await ExportKeyHandler();
-                        break;
-                    case W:
-                        await RotateWrapKeyHandler();
-                        break;
+                    //case E:
+                    //    await EncryptionHandler();
+                    //    break;
+                    //case D:
+                    //    await DecryptionHandler();
+                    //    break;
+                    //case R:
+                    //    await RotateKeyHandler();
+                    //    break;
+                    //case X:
+                    //    await ExportKeyHandler();
+                    //    break;
+                    //case W:
+                    //    await RotateWrapKeyHandler();
+                    //    break;
                     default:
                         KeyUnknown();
                         break;
                 }
 
 
-            } while (ck != Escape);
-
-            async Task RotateWrapKeyHandler()
-            {
-                Console.WriteLine("Please write down name for the key that you want to rotate:");
-                var oldKeyName = Console.ReadLine();
-                Console.Clear();
-                var wrappedNewKey = await api.RotateKeyWrapped(oldKeyName);
-                Console.WriteLine("The new Key value:\n");
-                Console.WriteLine(wrappedNewKey.wrapped_key);
-
-            }
+            } while (ck != ConsoleKey.Escape);
 
 
 
@@ -78,63 +72,81 @@ namespace Test5
                 Console.WriteLine("Please enter a valid key or end the App by pressing ESC.");
             }
 
+
+
             async Task CreateNewKeyHandler()
             {
                 Console.WriteLine("Please write down name for the key");
                 string newKeyName = Console.ReadLine();
                 var newKey = await api.CreateNewKey(newKeyName);
-                Console.Clear();
-                if (newKey.name != null)
-                {
-                    Console.WriteLine("New key info: ");
-                    Console.WriteLine("Key name: " + newKey.name);
-                    Console.WriteLine("Key id: " + newKey.kid + "\n");
-                }
-                else
-                {
-                    Console.WriteLine("Error.. New key was't created.");
-                }
+                //Console.Clear();
+                //if (newKey.name != null)
+                //{
+                //    Console.WriteLine("New key info: ");
+                //    Console.WriteLine("Key name: " + newKey.name);
+                //    Console.WriteLine("Key id: " + newKey.kid + "\n");
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Error.. New key was't created.");
+                //}
 
-                keyName = newKey.name;
+                //keyName = newKey.name;
+
             }
 
-            async Task EncryptionHandler()
-            {
-                Console.WriteLine("Please write your plain text:");
-                string data = Console.ReadLine();
+            //async Task EncryptionHandler()
+            //{
+            //    Console.WriteLine("Please write your plain text:");
+            //    string data = Console.ReadLine();
 
-                Payload payload = new Payload(keyName, data);
+            //    Payload payload = new Payload(keyName, data);
 
-                var encryptedChicken = await api.Encrypt(payload);
-                Console.WriteLine($"Your cipher text is: {encryptedChicken.Data} \n");
-            }
+            //    var encryptedChicken = await api.Encrypt(payload);
+            //    Console.WriteLine($"Your cipher text is: {encryptedChicken.Data} \n");
 
-            async Task DecryptionHandler()
-            {
-                Console.WriteLine("Please write your cipher text");
-                string cipher = Console.ReadLine();
+            //}
 
-                Payload payload = new Payload(keyName, cipher);
+            //async Task DecryptionHandler()
+            //{
+            //    Console.WriteLine("Please write your cipher text");
+            //    string cipher = Console.ReadLine();
 
-                var decryptedChicken = await api.Decrypt(payload);
-                Console.WriteLine($"Your decrypted text is: {decryptedChicken.Data}");
-            }
+            //    Payload payload = new Payload(keyName, cipher);
 
-            async Task RotateKeyHandler()
-            {
-                Console.WriteLine("Please enter the name of the key that should rotate:");
-                var keyname = Console.ReadLine();
-                var newkey = await api.RotateKey(keyname);
-                Console.WriteLine($"\nKeyname: {newkey.name}\nNew Key-Id: {newkey.kid}\n");
-            }
+            //    var decryptedChicken = await api.Decrypt(payload);
+            //    Console.WriteLine($"Your decrypted text is: {decryptedChicken.Data}");
 
-            async Task ExportKeyHandler()
-            {
-                Console.WriteLine("Please enter the name of the key that you want to export:");
-                var keyname = Console.ReadLine();
-                var key = await api.ExportKey(keyname);
-                Console.WriteLine($"\nKeyname: {key.name}\nKey-Id: {key.kid}\nKey-Value: {key.value}\n");
-            }
+            //}
+
+            //async Task RotateKeyHandler()
+            //{
+            //    Console.WriteLine("Please enter the name of the key that should rotate:");
+            //    var keyname = Console.ReadLine();
+            //    var newkey = await api.RotateKey(keyname);
+            //    Console.WriteLine($"\nKeyname: {newkey.name}\nNew Key-Id: {newkey.kid}\n");
+
+            //}
+
+            //async Task ExportKeyHandler()
+            //{
+            //    Console.WriteLine("Please enter the name of the key that you want to export:");
+            //    var keyname = Console.ReadLine();
+            //    var key = await api.ExportKey(keyname);
+            //    Console.WriteLine($"\nKeyname: {key.name}\nKey-Id: {key.kid}\nKey-Value: {key.value}\n");
+
+            //}
+
+            //async Task RotateWrapKeyHandler()
+            //{
+            //    Console.WriteLine("Please write down name for the key that you want to rotate:");
+            //    var oldKeyName = Console.ReadLine();
+            //    Console.Clear();
+            //    var wrappedNewKey = await api.RotateKeyWrapped(oldKeyName);
+            //    Console.WriteLine("The new Key value:\n");
+            //    Console.WriteLine(wrappedNewKey.wrapped_key);
+
+            //}
         }
     }
 }
