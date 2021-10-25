@@ -153,11 +153,30 @@ namespace Test5
         {
             await CheckConnection();
 
-            return new Key();
-            
-             /* 2. Create new key
-             */
-               
+            Key keyRequest = new Key(newKeyName, 256, true);
+            string keyToCreate = JsonSerializer.Serialize(keyRequest);
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/crypto/v1/keys");
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            request.Content = new StringContent(keyToCreate);
+            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = await _httpClient.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                Key newKey = JsonSerializer.Deserialize<Key>(content);
+                return newKey;
+            }
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                var errorCode = response.StatusCode;
+                Console.WriteLine("Error: " + errorCode + "\nMessage: " + errorMessage);
+                return new Key();
+            }
+
         }
 
         //public async Task<Payload> Encrypt(string keyName, string data)

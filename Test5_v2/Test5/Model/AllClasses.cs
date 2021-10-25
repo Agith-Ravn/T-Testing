@@ -41,5 +41,16 @@ namespace Test5.Model
     {
         public string Data { get; set; }
         public string DeviceID { get; set; }
+
+        public Key()
+        {
+
+        }
+    }
+
+    public class Payload
+    {
+        public string Data { get; set; }
+        public string DeviceID { get; set; }
     }
 }

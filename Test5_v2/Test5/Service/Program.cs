@@ -16,7 +16,10 @@ namespace Test5
             //string path = "C:/Users/AgithRavn/Documents/GitHub/Testing/Test5_v2/Test5/Model/LoginData.json";
             string path = @"..\..\..\Model\LoginData.json";
             var api = new FortanixService(path);
-            string keyName = "Test13";
+
+            //????
+            //string keyName = "Test13"; 
+
             ConsoleKey ck;
             Console.WriteLine("Ziot Solutions - Fortanix API test console app\n");
 
@@ -76,18 +79,19 @@ namespace Test5
                 Console.WriteLine("Please write down name for the key");
                 string newKeyName = Console.ReadLine();
                 var newKey = await api.CreateNewKey(newKeyName);
-                //Console.Clear();
-                //if (newKey.name != null)
-                //{
-                //    Console.WriteLine("New key info: ");
-                //    Console.WriteLine("Key name: " + newKey.name);
-                //    Console.WriteLine("Key id: " + newKey.kid + "\n");
-                //}
-                //else
-                //{
-                //    Console.WriteLine("Error.. New key was't created.");
-                //}
+                Console.Clear();
+                if (newKey.name != null)
+                {
+                    Console.WriteLine("New key info: ");
+                    Console.WriteLine("Key name: " + newKey.name);
+                    Console.WriteLine("Key id: " + newKey.kid + "\n");
+                }
+                else
+                {
+                    Console.WriteLine("Error.. New key was't created.");
+                }
 
+                //Hva er poenget med denne?
                 //keyName = newKey.name;
 
             }
