@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .space {
+            padding: 1rem;
+            }
+
+        #resultat {
+            color: white;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .border {
+            display: flex;
+            flex-direction: column;
+            border: 2px solid black;
+            border-color: rgba(0, 0, 0, 0.226);
+            border-radius: 10px;
+            height: 100px;
+            margin: 0.5rem;
+            padding: 0 1rem;
+            text-align: center;
+        }
+
+        .all {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;;
+            
+        }
+        .resultat {
+            margin: 50px;
+
+        }
+
+        .div_kode {
+            text-align: center;
+            border: 2px solid black;
+            border-color: rgba(0, 0, 0, 0.226);
+            border-radius: 10px;
+            padding: 1rem 0.5rem;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="all">   
+        <div class="border">
+            <p>Endre størrelse</p>
+            <input id="sizeSlider" type="range" min="100" max="500" step="10" oninput="showDiv()" /> <!-- Oninput = Reagerer på når verdi har blitt endret -->
+        </div>
+
+        <div class="border">
+            <p>Legg til tekst</p>
+            <input id="textInput" type="text" oninput="showDiv()" value=" "> <!-- Oninput = Reagerer på når verdi har blitt endret -->
+        </div>
+
+        <div class="border">
+            <p>Endre farge</p>
+            <select id="colorChooser" onchange="showDiv()"> <!-- Onchange = Aktiverer funksjon når verdi av en element har blitt forandret -->
+                <option selected value="red">Red color</option>
+                <option value="green">Green color</option>
+                <option value="blue">Blue color</option>
+            </select>
+        </div> 
+
+        <div class="border">            
+            <p>Endre border radius</p>
+            <input id="borderRadiusSlider" type="range" min="0" max="250" step="10" oninput="showDiv()" /> <!-- Oninput = Reagerer på når verdi har blitt endret -->
+        </div>
+
+        <div class="border">            
+            <p>Endre border width</p>
+            <input id="borderWidthSlider" type="range" min="0" max="50" step="1" oninput="showDiv()" /> <!-- Oninput = Reagerer på når verdi har blitt endret -->
+        </div>
+
+        <div class="border">
+            <p>Endre farge på border</p>
+            <select id="borderColorChooser" onchange="showDiv()"> <!-- Oninput = Reagerer på når verdi har blitt endret -->
+                <option selected value="black">Black color</option>
+                <option value="grey">Grey color</option>
+                <option value="pink">Pink color</option>
+            </select>
+        </div>
+    </div>    
+
+
+    <div class="resultat" id="resultat"></div>
+
+    <div class="div_kode" id="resultatHtml" style="font-family: monospace"></div>
+    
+
+    <script>
+        var resultatDiv = document.getElementById('resultat');
+        var resultatHtmlDiv = document.getElementById('resultatHtml');
+        var sizeSlider = document.getElementById('sizeSlider');
+        var textInput = document.getElementById('textInput');                       // document.getElementbyId("borderSizeSlider") = forandre innhold av
+        var colorChooser = document.getElementById('colorChooser');                // html med id borderSizeSlider + Endrer navn på ^ til borderSizeSlider
+        var borderRadiusSlider = document.getElementById("borderRadiusSlider"); 
+        var borderColorChooser = document.getElementById("borderColorChooser");
+        var borderWidthSlider = document.getElementById("borderWidthSlider")
+        
+        showDiv(); // Hva gjør denne?
+
+        function showDiv() {                                                     // Function - koder som skal gjøre en oppgave
+            resultatDiv.innerHTML = '<div style="'
+                + 'background-color: ' + colorChooser.value + ';'                  
+                + 'width: ' + sizeSlider.value + 'px;'
+                + 'height: ' + sizeSlider.value + 'px;'
+                + "border-style: solid; "                                       
+                + "border-width: " + borderWidthSlider.value + "px; "
+                + "border-color: " + borderColorChooser.value + ";"             
+                + "border-radius: " + borderRadiusSlider.value + "px "
+                + '">' 
+                + textInput.value + '</div>'
+
+            resultatHtmlDiv.innerText = resultatDiv.innerHTML;  // lagrer resultatDiv.innerHTML > inn i resultatHtmlDiv.innerText 
+        }
+    </script>
+</body>
+</html>
