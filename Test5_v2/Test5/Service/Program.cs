@@ -1,5 +1,6 @@
 ﻿using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -8,13 +9,17 @@ namespace Test5
     class Program
     {
         // Device Id is coded into this class. Needs to be changed so that it can be entered manually
-        //IV for encryption is coded into the fortanixService class. may needs to be changed later. 
+        // IV for encryption is coded into the fortanixService class. may needs to be changed later. 
 
         static async Task Main(string[] args)
         {
-            string path = "C:/Users/AgithRavn/Documents/GitHub/Testing/Test5_v2/Test5/Model/LoginData.json";
+            //string path = "C:/Users/AgithRavn/Documents/GitHub/Testing/Test5_v2/Test5/Model/LoginData.json";
+            string path = @"..\..\..\Model\LoginData.json";
             var api = new FortanixService(path);
-            string keyName = "Test13";
+
+            //????
+            //string keyName = "Test13"; 
+
             ConsoleKey ck;
             Console.WriteLine("Ziot Solutions - Fortanix API test console app\n");
 
@@ -32,11 +37,6 @@ namespace Test5
                 ck = Console.ReadKey().Key;
                 Console.Clear();
 
-
-                //if (ck == ConsoleKey.K)
-                //{
-                //    await CreateNewKeyHandler();
-                //}
                 switch (ck)
                 {
                     case ConsoleKey.K:
@@ -79,18 +79,19 @@ namespace Test5
                 Console.WriteLine("Please write down name for the key");
                 string newKeyName = Console.ReadLine();
                 var newKey = await api.CreateNewKey(newKeyName);
-                //Console.Clear();
-                //if (newKey.name != null)
-                //{
-                //    Console.WriteLine("New key info: ");
-                //    Console.WriteLine("Key name: " + newKey.name);
-                //    Console.WriteLine("Key id: " + newKey.kid + "\n");
-                //}
-                //else
-                //{
-                //    Console.WriteLine("Error.. New key was't created.");
-                //}
+                Console.Clear();
+                if (newKey.name != null)
+                {
+                    Console.WriteLine("New key info: ");
+                    Console.WriteLine("Key name: " + newKey.name);
+                    Console.WriteLine("Key id: " + newKey.kid + "\n");
+                }
+                else
+                {
+                    Console.WriteLine("Error.. New key was't created.");
+                }
 
+                //Hva er poenget med denne?
                 //keyName = newKey.name;
 
             }
