@@ -43,6 +43,10 @@
             "EPPlus.Core": {
               "target": "Package",
               "version": "[1.5.4, )"
+            },
+            "Json.Net": {
+              "target": "Package",
+              "version": "[1.0.33, )"
             }
           },
           "imports": [

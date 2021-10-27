@@ -26,6 +26,15 @@
           "lib/netstandard2.0/EPPlus.Core.dll": {}
         }
       },
+      "Json.Net/1.0.33": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Json.Net.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Json.Net.dll": {}
+        }
+      },
       "Microsoft.NETCore.Platforms/2.0.0": {
         "type": "package",
         "compile": {
@@ -1123,6 +1132,18 @@
         "lib/netstandard1.3/EPPlus.Core.xml",
         "lib/netstandard2.0/EPPlus.Core.dll",
         "lib/netstandard2.0/EPPlus.Core.xml"
+      ]
+    },
+    "Json.Net/1.0.33": {
+      "sha512": "5tE+db6BqhRAvITIVBeRsQorLGshPExfm4FmMRvWWAfs4RxeTbFFj2PIEybwmMW0qR30HKkXDYhq0YkDK2Jtxw==",
+      "type": "package",
+      "path": "json.net/1.0.33",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "json.net.1.0.33.nupkg.sha512",
+        "json.net.nuspec",
+        "lib/netstandard2.0/Json.Net.dll"
       ]
     },
     "Microsoft.NETCore.Platforms/2.0.0": {
@@ -3983,7 +4004,8 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "EPPlus.Core >= 1.5.4"
+      "EPPlus.Core >= 1.5.4",
+      "Json.Net >= 1.0.33"
     ]
   },
   "packageFolders": {
@@ -4028,6 +4050,10 @@
           "EPPlus.Core": {
             "target": "Package",
             "version": "[1.5.4, )"
+          },
+          "Json.Net": {
+            "target": "Package",
+            "version": "[1.0.33, )"
           }
         },
         "imports": [
