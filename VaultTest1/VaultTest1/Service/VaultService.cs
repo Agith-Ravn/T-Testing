@@ -55,7 +55,7 @@ namespace VaultTest1
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                SessionData _sessionData = JsonSerializer.Deserialize<SessionData>(content);
+                _sessionData = JsonSerializer.Deserialize<SessionData>(content);
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sessionData.auth.client_token);
                 login = true;
                 return _sessionData;
@@ -65,11 +65,11 @@ namespace VaultTest1
                 var errormessage = await response.Content.ReadAsStringAsync();
                 var errorcode = response.StatusCode;
                 Console.WriteLine($"Error {(int)errorcode}: \nMessage: {errormessage}");
-                return _sessionData = new SessionData();
+                return new SessionData();
             }
         }
 
-        public async Task<Key> CreateNewKey(string keyName)
+        public async Task<int> CreateNewKey(string keyName)
         {
 
             var key = new Key()
@@ -88,20 +88,75 @@ namespace VaultTest1
             request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             var response = await _httpClient.SendAsync(request);
+            int statusCode = (int)response.StatusCode;
+            return statusCode;
+        }
+
+        public async Task<Payload> EncryptMessage(string keyName, Payload payload)
+        {
+            var plaintext64 = Base64Encode(payload.plaintext);
+            payload.plaintext = plaintext64;
+
+            var serializedPayload = JsonSerializer.Serialize(payload);
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/v1/transit/encrypt/" + keyName);
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            request.Content = new StringContent(serializedPayload);
+            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = await _httpClient.SendAsync(request);
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                Key newKey = JsonSerializer.Deserialize<Key>(content);
-                return newKey;
+                EncryptedPayload er = JsonSerializer.Deserialize<EncryptedPayload>(content);
+                return new Payload(er.data.ciphertext, payload.type);
             }
             else
             {
                 var errormessage = await response.Content.ReadAsStringAsync();
                 var errorcode = response.StatusCode;
                 Console.WriteLine($"Error {(int)errorcode}: \nMessage: {errormessage}");
-                return new Key();
+                return new Payload();
+            }
+
+        }
+        private string Base64Encode(string plain)
+        {
+            var plaintextbytes = Encoding.UTF8.GetBytes(plain);
+            return Convert.ToBase64String(plaintextbytes);
+        }
+
+        public async Task<Payload> DecryptMessage(string keyName, Data payload)
+        {
+            var serializedPayload = JsonSerializer.Serialize(payload);
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/v1/transit/decrypt/" + keyName);
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            request.Content = new StringContent(serializedPayload);
+            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = await _httpClient.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                DecryptedPayload dp = JsonSerializer.Deserialize<DecryptedPayload>(content);
+                return new Payload(Base64Decode(dp.data.plaintext));
+            }
+            else
+            {
+                var errormessage = await response.Content.ReadAsStringAsync();
+                var errorcode = response.StatusCode;
+                Console.WriteLine($"Error {(int)errorcode}: \nMessage: {errormessage}");
+                return new Payload();
             }
         }
 
+        private string Base64Decode(string code)
+        {
+            var base64EncodedBytes = Convert.FromBase64String(code);
+            return Encoding.UTF8.GetString(base64EncodedBytes);
+        }
     }
 }

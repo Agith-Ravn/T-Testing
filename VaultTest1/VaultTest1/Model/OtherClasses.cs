@@ -24,4 +24,56 @@ namespace VaultTest1.Model
         public bool exportable { get; set; }
         public string type { get; set; }
     }
+
+    public class Payload
+    {
+        public string plaintext { get; set; }
+        public string type { get; set; }
+
+        public Payload(string plaintext, string type)
+        {
+            this.plaintext = plaintext;
+            this.type = type;
+        }
+
+        public Payload(string plaintext)
+        {
+            this.plaintext = plaintext;
+        }
+
+        public Payload()
+        {
+        }
+    }
+
+    public class EncryptedPayload
+    {
+        public Data data { get; set; }
+    }
+
+    public class Data
+    {
+        public string ciphertext { get; set; }
+
+        public Data(string ciphertext)
+        {
+            this.ciphertext = ciphertext;
+        }
+    }
+
+    public class DecryptedPayload
+    {
+        public Data2 data { get; set; }
+    }
+
+    public class Data2
+    {
+        public string plaintext { get; set; }
+
+        public Data2(string plaintext)
+        {
+            this.plaintext = plaintext;
+        }
+    }
+
 }
