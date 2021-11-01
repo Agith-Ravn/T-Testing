@@ -19,6 +19,8 @@ namespace VaultTest1
         private HttpClient _httpClient { get; set; }
         public SessionData _sessionData { get; private set; }
 
+        private ExportKeyResponse _EKR { get; set; }
+
         public VaultService(string filepath)
         {
             _loginData = JsonToObject(filepath);
@@ -158,5 +160,101 @@ namespace VaultTest1
             var base64EncodedBytes = Convert.FromBase64String(code);
             return Encoding.UTF8.GetString(base64EncodedBytes);
         }
+
+        public async Task<int> RotateAKey(string keyName)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Post, "v1/transit/keys/"+ keyName +"/rotate");
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var response = await _httpClient.SendAsync(request);
+            int statusCode = (int)response.StatusCode;
+            return statusCode;
+        }
+
+        public async Task<string> ExportAKey(string keyName)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, "/v1/transit/export/encryption-key/" + keyName);
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var response = await _httpClient.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                _EKR = JsonSerializer.Deserialize<ExportKeyResponse>(content);
+
+                //Hente den nyeste nøkkelen fra dictionary
+                string Exportedkey = GetNewestKey(_EKR.data.keys);
+                return Exportedkey;
+            }
+            else
+            {
+                var errormessage = await response.Content.ReadAsStringAsync();
+                var errorcode = response.StatusCode;
+                Console.WriteLine($"Error {(int)errorcode}: \nMessage: {errormessage}");
+                return "";
+            }
+        }
+
+        public static V GetNewestKey<K, V>(Dictionary<K, V> dict)
+        {
+            for (int i = 0; i < dict.Count; i++)
+            {
+                KeyValuePair<K, V> entry = dict.ElementAt(i);
+                if (i == (dict.Count - 1))
+                {
+                    return entry.Value;
+                }
+            }
+            Dictionary<K, V> emptyDicitionary = new Dictionary<K, V>();
+            return emptyDicitionary.ElementAt(0).Value;
+        }
+
+        public string GetOldKeyVersion()
+        {
+            for (int i = 0; i < _EKR.data.keys.Count; i++)
+            {
+                if (i == (_EKR.data.keys.Count - 2))
+                {
+                    string version = i.ToString();
+                    return version;
+                }
+            }
+            return null;
+
+        }
+
+
+        public async Task<Payload> EncryptNewKeyWithOldKey(string keyName, Payload payload)
+        {
+            var newKey64 = Base64Encode(payload.plaintext);
+            payload.plaintext = newKey64;
+
+            var serializedPayload = JsonSerializer.Serialize(payload);
+
+            //Trenger key_version av den forrige
+
+            //var request = new HttpRequestMessage(HttpMethod.Post, "/v1/transit/encrypt/" + keyName);
+            //request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            //request.Content = new StringContent(serializedPayload);
+            //request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            //var response = await _httpClient.SendAsync(request);
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    var content = await response.Content.ReadAsStringAsync();
+            //    EncryptedPayload er = JsonSerializer.Deserialize<EncryptedPayload>(content);
+            //    return new Payload(er.data.ciphertext, payload.type);
+            //}
+            //else
+            //{
+            //    var errormessage = await response.Content.ReadAsStringAsync();
+            //    var errorcode = response.StatusCode;
+            //    Console.WriteLine($"Error {(int)errorcode}: \nMessage: {errormessage}");
+            //    return new Payload();
+            //}
+
+        }
+
     }
 }

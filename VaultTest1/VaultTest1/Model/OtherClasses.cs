@@ -76,4 +76,14 @@ namespace VaultTest1.Model
         }
     }
 
+    public class ExportKeyResponse
+    {
+        public Data3 data { get; set; }
+    }
+    public class Data3
+    {
+        public string name { get; set; }
+        public Dictionary <int, string> keys { get; set; }
+    }
 }
+    

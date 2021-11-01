@@ -30,9 +30,9 @@ namespace VaultTest1
                     Console.WriteLine("Press C = Create new key");
                     Console.WriteLine("Press E = Encrypt a message");
                     Console.WriteLine("Press D = Decrypt a message");
-                    //Console.WriteLine("Press R = Rotate a Key");
-                    //Console.WriteLine("Press X = Make a key exportable";
-                    //Console.WriteLine("Press W = Rotate a Key and warpped the new Key in the old Key");
+                    Console.WriteLine("Press R = Rotate a Key");
+                    Console.WriteLine("Press X = Export key");
+                    Console.WriteLine("Press W = Rotate a key and warpped the new Key with the old key");
                     Console.WriteLine("Press ESC = End the app");
                     Console.WriteLine("\nPlease press a key");
                 }
@@ -56,6 +56,18 @@ namespace VaultTest1
 
                     case ConsoleKey.D:
                         await DecryptMessage();
+                        break;
+
+                    case ConsoleKey.R:
+                        await RotateAKey();
+                        break;
+
+                    case ConsoleKey.X:
+                        await ExportAKey();
+                        break;
+
+                    case ConsoleKey.W:
+                        await RotateAndWrap();
                         break;
 
                     default:
@@ -157,6 +169,102 @@ namespace VaultTest1
                 Thread.Sleep(300);
                 Console.Clear();
             }
+
+            //Use key1
+            async Task RotateAKey()
+            {
+                Console.WriteLine("Please write down the name/id of the key you want to rotate");
+                string keyName = Console.ReadLine().ToLower();
+
+                int statusCode = await vault.RotateAKey(keyName);
+                if (statusCode == 204)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Key named " + keyName + " is now rotated\n");
+                }
+                else
+                {
+                    Console.WriteLine("Error - No key was not rotated\n");
+                    Thread.Sleep(300);
+                    Console.Clear();
+                }
+            }
+
+            async Task ExportAKey()
+            {
+                Console.WriteLine("Please write down the name/id of the key you want to export");
+                string keyName = Console.ReadLine().ToLower();
+                var exportedKey = await vault.ExportAKey(keyName);
+                if (exportedKey == null)
+                {
+                    Console.WriteLine("Error - No key was exported\n");
+                    Thread.Sleep(300);
+                    Console.Clear();
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Exporting " + keyName + "\nThe key is: +" + exportedKey + "\n");
+                }
+            }
+
+            async Task RotateAndWrap()
+            {
+                //Først rotate key v.1 til v.2
+                //Encode v.2 key
+                //Encrypt v.2 key med v.1 key
+                //Returnerer chipertext
+
+                //Trenger vi en method som decrypter v.2 key med v.1?
+                //Lag en for trening..
+
+                Console.WriteLine("Please write down the name/id of the key you want to rotate");
+                string keyName = Console.ReadLine().ToLower();
+
+                //Rotate key
+                int statusCode = await vault.RotateAKey(keyName);
+                Console.Clear();
+                Console.WriteLine("Key named " + keyName + " is now rotated\n");
+
+                await EncryptNewKeyWithOldKey(keyName);
+
+            }
+
+            async Task EncryptNewKeyWithOldKey(string keyName)
+            {
+                //Get the rotated key
+                var newKey = await vault.ExportAKey(keyName);
+                Console.Clear();
+                Console.WriteLine(keyName + "is now rotated\n");
+
+                //Get version of prevoius key
+                var version = vault.GetOldKeyVersion();
+
+
+                //Encrypt new key with old key
+                //await EncryptNewKeyWithOldKey(keyName, newKey);
+
+            }
+
+            //async Task EncryptNewKeyWithOldKey(string keyName, string newKey)
+            //{
+            //    //Må 
+            //    Payload payload = new Payload(newKey, "aes256-gcm96");
+            //    var encryptedPayload = await vault.EncryptNewKey(keyName, payload);
+
+            //    if (encryptedPayload.plaintext != null)
+            //    {
+            //        Console.Clear();
+            //        Console.WriteLine("Your ciphertext is : " + encryptedPayload.plaintext);
+            //        Console.WriteLine("Make sure to save this a place!\n");
+            //        return;
+            //    }
+
+            //    Console.WriteLine("Error - message was not encrypted\n");
+            //    Thread.Sleep(300);
+            //    Console.Clear();
+            //}
+
         }
     }
 }
