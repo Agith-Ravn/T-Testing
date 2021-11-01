@@ -238,32 +238,28 @@ namespace VaultTest1
                 Console.WriteLine(keyName + "is now rotated\n");
 
                 //Get version of prevoius key
-                var version = vault.GetOldKeyVersion();
+                var oldKeyVersion = vault.GetOldKeyVersion();
+                if (oldKeyVersion != 0)
+                {
+                    //Encrypt new key with old key
+                    Payload payload = new Payload(newKey, "aes256-gcm96", oldKeyVersion);
+                    var encryptedPayload = await vault.EncryptNewKeyWithOldKey(keyName, payload);
 
+                    if (encryptedPayload.plaintext != null)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Your ciphertext is : " + encryptedPayload.plaintext);
+                        Console.WriteLine("Make sure to save this a place!\n");
+                        return;
+                    }
 
-                //Encrypt new key with old key
-                //await EncryptNewKeyWithOldKey(keyName, newKey);
+                    Console.WriteLine("Error - message was not encrypted\n");
+                    Thread.Sleep(300);
+                    Console.Clear();
+                }
+
 
             }
-
-            //async Task EncryptNewKeyWithOldKey(string keyName, string newKey)
-            //{
-            //    //Må 
-            //    Payload payload = new Payload(newKey, "aes256-gcm96");
-            //    var encryptedPayload = await vault.EncryptNewKey(keyName, payload);
-
-            //    if (encryptedPayload.plaintext != null)
-            //    {
-            //        Console.Clear();
-            //        Console.WriteLine("Your ciphertext is : " + encryptedPayload.plaintext);
-            //        Console.WriteLine("Make sure to save this a place!\n");
-            //        return;
-            //    }
-
-            //    Console.WriteLine("Error - message was not encrypted\n");
-            //    Thread.Sleep(300);
-            //    Console.Clear();
-            //}
 
         }
     }

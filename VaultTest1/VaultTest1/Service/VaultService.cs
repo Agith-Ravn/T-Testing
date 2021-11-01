@@ -209,17 +209,16 @@ namespace VaultTest1
             return emptyDicitionary.ElementAt(0).Value;
         }
 
-        public string GetOldKeyVersion()
+        public int GetOldKeyVersion()
         {
             for (int i = 0; i < _EKR.data.keys.Count; i++)
             {
                 if (i == (_EKR.data.keys.Count - 2))
                 {
-                    string version = i.ToString();
-                    return version;
+                    return i;
                 }
             }
-            return null;
+            return 0;
 
         }
 
@@ -231,28 +230,26 @@ namespace VaultTest1
 
             var serializedPayload = JsonSerializer.Serialize(payload);
 
-            //Trenger key_version av den forrige
+            var request = new HttpRequestMessage(HttpMethod.Post, "/v1/transit/encrypt/" + keyName);
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            //var request = new HttpRequestMessage(HttpMethod.Post, "/v1/transit/encrypt/" + keyName);
-            //request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            request.Content = new StringContent(serializedPayload);
+            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            //request.Content = new StringContent(serializedPayload);
-            //request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-            //var response = await _httpClient.SendAsync(request);
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var content = await response.Content.ReadAsStringAsync();
-            //    EncryptedPayload er = JsonSerializer.Deserialize<EncryptedPayload>(content);
-            //    return new Payload(er.data.ciphertext, payload.type);
-            //}
-            //else
-            //{
-            //    var errormessage = await response.Content.ReadAsStringAsync();
-            //    var errorcode = response.StatusCode;
-            //    Console.WriteLine($"Error {(int)errorcode}: \nMessage: {errormessage}");
-            //    return new Payload();
-            //}
+            var response = await _httpClient.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                EncryptedPayload er = JsonSerializer.Deserialize<EncryptedPayload>(content);
+                return new Payload(er.data.ciphertext, payload.type);
+            }
+            else
+            {
+                var errormessage = await response.Content.ReadAsStringAsync();
+                var errorcode = response.StatusCode;
+                Console.WriteLine($"Error {(int)errorcode}: \nMessage: {errormessage}");
+                return new Payload();
+            }
 
         }
 

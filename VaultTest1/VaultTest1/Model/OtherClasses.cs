@@ -29,7 +29,14 @@ namespace VaultTest1.Model
     {
         public string plaintext { get; set; }
         public string type { get; set; }
+        public int key_version { get; set; }
 
+        public Payload(string plaintext, string type, int key_version)
+        {
+            this.plaintext = plaintext;
+            this.type = type;
+            this.key_version = key_version;
+        }
         public Payload(string plaintext, string type)
         {
             this.plaintext = plaintext;
